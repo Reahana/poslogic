@@ -294,10 +294,57 @@ unset($__errorArgs, $__bag); ?>
             </div>
             <!-- col-end -->
 
-            <div class="col-sm-4 mb-3">
-              <label for="image">Image *</label>
-              <div class="input-group control-group increment">
-                <input type="file" name="image[]" class="form-control <?php $__errorArgs = ['image'];
+            
+              
+              
+                
+                
+                  
+                
+                
+                
+                  
+                
+                
+              
+
+              
+                
+                  
+                  
+                    
+                  
+                
+              
+              
+                
+                
+                
+                
+              
+            
+            <!-- col end -->
+
+            
+            <div class="col-sm-12 mb-3">
+              <label for="image">Add New Image <small class="text-muted">(Sort Order 0 = মূল ছবি)</small></label>
+
+              <div class="clone hide" style="display: none;">
+                <div class="control-group mb-2">
+                  <div class="row">
+                    <div class="col-sm-4"><input type="file" name="image[]" class="form-control" /></div>
+                    <div class="col-sm-3"><input type="text" name="alt_text[]" class="form-control" placeholder="Alt text" /></div>
+                    <div class="col-sm-3"><input type="text" name="image_title[]" class="form-control" placeholder="Image title" /></div>
+                    <div class="col-sm-1"><input type="number" name="sort_order[]" class="form-control" value="<?php echo e($edit_data->images->count()); ?>" min="0" /></div>
+                    <div class="col-sm-1"><button class="btn btn-danger" type="button"><i class="fa fa-trash"></i></button></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group increment mb-2">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <input type="file" name="image[]" class="form-control <?php $__errorArgs = ['image'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -305,39 +352,51 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" />
-                <div class="input-group-btn">
-                  <button class="btn btn-success btn-increment" type="button"><i class="fa fa-plus"></i></button>
-                </div>
-                <?php $__errorArgs = ['image'];
+                    <?php $__errorArgs = ['image'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                <span class="invalid-feedback" role="alert">
-                  <strong><?php echo e($message); ?></strong>
-                </span>
-                <?php unset($message);
+                    <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                    <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-              </div>
-
-              <div class="clone hide" style="display: none;">
-                <div class="control-group input-group">
-                  <input type="file" name="image[]" class="form-control" />
-                  <div class="input-group-btn">
-                    <button class="btn btn-danger" type="button"><i class="fa fa-trash"></i></button>
                   </div>
+                  <div class="col-sm-3"><input type="text" name="alt_text[]" class="form-control" placeholder="Alt text" /></div>
+                  <div class="col-sm-3"><input type="text" name="image_title[]" class="form-control" placeholder="Image title" /></div>
+                  <div class="col-sm-1"><input type="number" name="sort_order[]" class="form-control" value="<?php echo e($edit_data->images->count()); ?>" min="0" /></div>
+                  <div class="col-sm-1"><button class="btn btn-success btn-increment" type="button"><i class="fa fa-plus"></i></button></div>
                 </div>
               </div>
-              <div class="product_img">
+
+              <?php if($edit_data->images->count()): ?>
+                <hr>
+                <label>Existing Images</label>
                 <?php $__currentLoopData = $edit_data->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <img src="<?php echo e(asset($image->image)); ?>" class="edit-image border" alt="" />
-                <a href="<?php echo e(route('products.image.destroy',['id'=>$image->id])); ?>" class="btn btn-xs btn-danger waves-effect waves-light"><i class="mdi mdi-close"></i></a>
+                  <div class="row align-items-center mb-2 existing-image-row">
+                    <div class="col-sm-2">
+                      <img src="<?php echo e(asset($image->image)); ?>" class="edit-image border" alt="" />
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="text" name="existing_alt[<?php echo e($image->id); ?>]" class="form-control" value="<?php echo e($image->alt_text); ?>" placeholder="Alt text" />
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="text" name="existing_title[<?php echo e($image->id); ?>]" class="form-control" value="<?php echo e($image->title); ?>" placeholder="Image title" />
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="number" name="existing_sort[<?php echo e($image->id); ?>]" class="form-control" value="<?php echo e($image->sort_order); ?>" min="0" />
+                    </div>
+                    <div class="col-sm-2">
+                      <a href="<?php echo e(route('products.image.destroy',['id'=>$image->id])); ?>" class="btn btn-xs btn-danger waves-effect waves-light"><i class="mdi mdi-close"></i></a>
+                    </div>
+                  </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-              </div>
+              <?php endif; ?>
             </div>
             <!-- col end -->
+            
+
             <div class="col-sm-6">
               <div class="form-group mb-3">
                 <label for="pro_unit" class="form-label">Product Unit (Optional)</label>
@@ -438,6 +497,264 @@ unset($__errorArgs, $__bag); ?>
               </div>
             </div>
              <!--col end -->
+
+            
+            <div class="col-sm-6">
+              <div class="form-group mb-3">
+                <label for="h1_title" class="form-label">H1 Title (Optional)</label>
+                <input type="text" class="form-control <?php $__errorArgs = ['h1_title'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="h1_title" value="<?php echo e(old('h1_title', $edit_data->h1_title)); ?>" id="h1_title" />
+                <?php $__errorArgs = ['h1_title'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-3">
+              <div class="form-group mb-3">
+                <label for="model_no" class="form-label">Model No</label>
+                <input type="text" class="form-control <?php $__errorArgs = ['model_no'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="model_no" value="<?php echo e(old('model_no', $edit_data->model_no)); ?>" id="model_no" />
+                <?php $__errorArgs = ['model_no'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-3">
+              <div class="form-group mb-3">
+                <label for="mpn" class="form-label">MPN</label>
+                <input type="text" class="form-control <?php $__errorArgs = ['mpn'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="mpn" value="<?php echo e(old('mpn', $edit_data->mpn)); ?>" id="mpn" />
+                <?php $__errorArgs = ['mpn'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-3">
+              <div class="form-group mb-3">
+                <label for="gtin" class="form-label">GTIN / Barcode</label>
+                <input type="text" class="form-control <?php $__errorArgs = ['gtin'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="gtin" value="<?php echo e(old('gtin', $edit_data->gtin)); ?>" id="gtin" />
+                <?php $__errorArgs = ['gtin'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-3">
+              <div class="form-group mb-3">
+                <label for="warranty" class="form-label">Warranty</label>
+                <input type="text" class="form-control <?php $__errorArgs = ['warranty'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="warranty" value="<?php echo e(old('warranty', $edit_data->warranty)); ?>" id="warranty" placeholder="1 Year Service Warranty" />
+                <?php $__errorArgs = ['warranty'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-3">
+              <div class="form-group mb-3">
+                <label for="availability_status" class="form-label">Availability</label>
+                <select class="form-control <?php $__errorArgs = ['availability_status'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="availability_status" id="availability_status">
+                  <option value="in_stock" <?php if(old('availability_status', $edit_data->availability_status)=='in_stock'): ?> selected <?php endif; ?>>In Stock</option>
+                  <option value="out_of_stock" <?php if(old('availability_status', $edit_data->availability_status)=='out_of_stock'): ?> selected <?php endif; ?>>Out of Stock</option>
+                  <option value="pre_order" <?php if(old('availability_status', $edit_data->availability_status)=='pre_order'): ?> selected <?php endif; ?>>Pre Order</option>
+                  <option value="on_request" <?php if(old('availability_status', $edit_data->availability_status)=='on_request'): ?> selected <?php endif; ?>>On Request</option>
+                </select>
+                <?php $__errorArgs = ['availability_status'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-3 mb-3">
+              <div class="form-group">
+                <label for="call_for_price" class="d-block">Call for Price</label>
+                <label class="switch">
+                  <input type="checkbox" value="1" name="call_for_price" <?php if($edit_data->call_for_price==1): ?> checked <?php endif; ?>>
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-4">
+              <div class="form-group mb-3">
+                <label for="delivery_info" class="form-label">Delivery Info</label>
+                <input type="text" class="form-control <?php $__errorArgs = ['delivery_info'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="delivery_info" value="<?php echo e(old('delivery_info', $edit_data->delivery_info)); ?>" id="delivery_info" />
+                <?php $__errorArgs = ['delivery_info'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-4">
+              <div class="form-group mb-3">
+                <label for="installation_info" class="form-label">Installation Info</label>
+                <input type="text" class="form-control <?php $__errorArgs = ['installation_info'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="installation_info" value="<?php echo e(old('installation_info', $edit_data->installation_info)); ?>" id="installation_info" />
+                <?php $__errorArgs = ['installation_info'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-4">
+              <div class="form-group mb-3">
+                <label for="service_info" class="form-label">Service Info</label>
+                <input type="text" class="form-control <?php $__errorArgs = ['service_info'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="service_info" value="<?php echo e(old('service_info', $edit_data->service_info)); ?>" id="service_info" />
+                <?php $__errorArgs = ['service_info'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-12 mb-3">
+              <div class="form-group">
+                <label for="short_description" class="form-label">Short Description (২-৩ লাইন)</label>
+                <textarea name="short_description" id="short_description" rows="3" class="form-control <?php $__errorArgs = ['short_description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"><?php echo e(old('short_description', $edit_data->short_description)); ?></textarea>
+                <?php $__errorArgs = ['short_description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+              </div>
+            </div>
+            <!-- col end -->
+
             <div class="col-sm-12 mb-3">
               <div class="form-group">
                 <label for="description" class="form-label">Description</label>
@@ -464,6 +781,50 @@ unset($__errorArgs, $__bag); ?>
               </div>
             </div>
             <!-- col end -->
+            
+              <div class="col-sm-6 mb-3">
+                  <div class="form-group">
+                      <label for="features" class="form-label">Features (প্রতি লাইনে একটা)</label>
+                      <textarea name="features" id="features" rows="5" class="form-control"><?php echo e(old('features', implode("\n", $edit_data->features ?? []))); ?></textarea>
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-6 mb-3">
+                  <div class="form-group">
+                      <label for="benefits" class="form-label">Benefits (প্রতি লাইনে একটা)</label>
+                      <textarea name="benefits" id="benefits" rows="5" class="form-control"><?php echo e(old('benefits', implode("\n", $edit_data->benefits ?? []))); ?></textarea>
+                  </div>
+              </div>
+              <!-- col end -->
+
+              <div class="col-sm-12 mb-3">
+                  <label class="form-label">Specifications</label>
+                  <div class="clone-spec" style="display: none;">
+                      <div class="row spec-row mb-2">
+                          <div class="col-sm-3"><input type="text" name="spec_group[]" class="form-control" placeholder="Group (Display)" /></div>
+                          <div class="col-sm-4"><input type="text" name="spec_name[]" class="form-control" placeholder="Name (Size)" /></div>
+                          <div class="col-sm-4"><input type="text" name="spec_value[]" class="form-control" placeholder="Value (15.6 inch)" /></div>
+                          <div class="col-sm-1"><button class="btn btn-danger btn-spec-remove" type="button"><i class="fa fa-trash"></i></button></div>
+                      </div>
+                  </div>
+                  <div class="row spec-row mb-2 spec-increment">
+                      <div class="col-sm-3"><input type="text" name="spec_group[]" class="form-control" placeholder="Group (Display)" /></div>
+                      <div class="col-sm-4"><input type="text" name="spec_name[]" class="form-control" placeholder="Name (Size)" /></div>
+                      <div class="col-sm-4"><input type="text" name="spec_value[]" class="form-control" placeholder="Value (15.6 inch)" /></div>
+                      <div class="col-sm-1"><button class="btn btn-success btn-spec-add" type="button"><i class="fa fa-plus"></i></button></div>
+                  </div>
+                  <?php $__currentLoopData = ($edit_data->specifications ?? []); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $spec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <div class="row spec-row mb-2">
+                          <div class="col-sm-3"><input type="text" name="spec_group[]" class="form-control" value="<?php echo e($spec['group'] ?? ''); ?>" /></div>
+                          <div class="col-sm-4"><input type="text" name="spec_name[]" class="form-control" value="<?php echo e($spec['name'] ?? ''); ?>" /></div>
+                          <div class="col-sm-4"><input type="text" name="spec_value[]" class="form-control" value="<?php echo e($spec['value'] ?? ''); ?>" /></div>
+                          <div class="col-sm-1"><button class="btn btn-danger btn-spec-remove" type="button"><i class="fa fa-trash"></i></button></div>
+                      </div>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              </div>
+              <!-- col end -->
+
+
            <div class="col-sm-12 mb-3">
               <div class="form-group">
                 <label for="note" class="form-label">Note</label>
@@ -490,6 +851,167 @@ unset($__errorArgs, $__bag); ?>
               </div>
             </div>
             <!-- col end -->
+
+              <div class="col-sm-12"><hr><h5>SEO Settings</h5></div>
+              <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                      <label for="meta_title" class="form-label">Meta Title</label>
+                      <input type="text" maxlength="191" class="form-control <?php $__errorArgs = ['meta_title'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="meta_title" value="<?php echo e(old('meta_title', $edit_data->meta_title)); ?>" id="meta_title" />
+                      <?php $__errorArgs = ['meta_title'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                      <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                      <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                      <label for="focus_keyword" class="form-label">Focus Keyword</label>
+                      <input type="text" maxlength="150" class="form-control <?php $__errorArgs = ['focus_keyword'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="focus_keyword" value="<?php echo e(old('focus_keyword', $edit_data->focus_keyword)); ?>" id="focus_keyword" />
+                      <?php $__errorArgs = ['focus_keyword'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                      <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                      <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-12 mb-3">
+                  <div class="form-group">
+                      <label for="meta_description" class="form-label">Meta Description (১৫০-১৬০ অক্ষর)</label>
+                      <textarea name="meta_description" id="meta_description" rows="3" class="form-control <?php $__errorArgs = ['meta_description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"><?php echo e(old('meta_description', $edit_data->meta_description)); ?></textarea>
+                      <?php $__errorArgs = ['meta_description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                      <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                      <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-6 mb-3">
+                  <div class="form-group">
+                      <label for="meta_keyword" class="form-label">Meta Keyword (Optional)</label>
+                      <textarea name="meta_keyword" id="meta_keyword" rows="3" class="form-control"><?php echo e(old('meta_keyword', $edit_data->meta_keyword)); ?></textarea>
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-6 mb-3">
+                  <div class="form-group">
+                      <label for="secondary_keywords" class="form-label">Secondary Keywords</label>
+                      <textarea name="secondary_keywords" id="secondary_keywords" rows="3" class="form-control"><?php echo e(old('secondary_keywords', $edit_data->secondary_keywords)); ?></textarea>
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-4">
+                  <div class="form-group mb-3">
+                      <label for="meta_robots" class="form-label">Meta Robots</label>
+                      <input type="text" class="form-control <?php $__errorArgs = ['meta_robots'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="meta_robots" value="<?php echo e(old('meta_robots', $edit_data->meta_robots ?: 'index,follow')); ?>" id="meta_robots" />
+                      <?php $__errorArgs = ['meta_robots'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                      <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                      <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-4">
+                  <div class="form-group mb-3">
+                      <label for="canonical_url" class="form-label">Canonical URL (সাধারণত ফাঁকা)</label>
+                      <input type="text" class="form-control <?php $__errorArgs = ['canonical_url'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="canonical_url" value="<?php echo e(old('canonical_url', $edit_data->canonical_url)); ?>" id="canonical_url" />
+                      <?php $__errorArgs = ['canonical_url'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                      <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                      <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-4">
+                  <div class="form-group mb-3">
+                      <label for="og_image" class="form-label">OG Image (ফাঁকা থাকলে প্রথম ছবি)</label>
+                      <input type="text" class="form-control <?php $__errorArgs = ['og_image'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="og_image" value="<?php echo e(old('og_image', $edit_data->og_image)); ?>" id="og_image" />
+                      <?php $__errorArgs = ['og_image'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                      <span class="invalid-feedback" role="alert"><strong><?php echo e($message); ?></strong></span>
+                      <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                  </div>
+              </div>
+              <!-- col end -->
+
              <div class="col-sm-3 mb-3">
               <div class="form-group mb-3">
                 <label for="sold" class="form-label">Sold</label>
@@ -608,6 +1130,19 @@ unset($__errorArgs, $__bag); ?>
     placeholder: "Enter Your Text Here",
   });
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $(".btn-spec-add").click(function () {
+      var html = $(".clone-spec").html();
+      $(".spec-increment").after(html);
+    });
+    $("body").on("click", ".btn-spec-remove", function () {
+      $(this).parents(".spec-row").remove();
+    });
+  });
+</script>
+
 <script type="text/javascript">
   $(document).ready(function () {
     $(".btn-increment").click(function () {

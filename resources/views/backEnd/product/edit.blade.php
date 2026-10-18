@@ -168,36 +168,95 @@
             </div>
             <!-- col-end -->
 
-            <div class="col-sm-4 mb-3">
-              <label for="image">Image *</label>
-              <div class="input-group control-group increment">
-                <input type="file" name="image[]" class="form-control @error('image') is-invalid @enderror" />
-                <div class="input-group-btn">
-                  <button class="btn btn-success btn-increment" type="button"><i class="fa fa-plus"></i></button>
-                </div>
-                @error('image')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
+            {{--<div class="col-sm-4 mb-3">--}}
+              {{--<label for="image">Image *</label>--}}
+              {{--<div class="input-group control-group increment">--}}
+                {{--<input type="file" name="image[]" class="form-control @error('image') is-invalid @enderror" />--}}
+                {{--<div class="input-group-btn">--}}
+                  {{--<button class="btn btn-success btn-increment" type="button"><i class="fa fa-plus"></i></button>--}}
+                {{--</div>--}}
+                {{--@error('image')--}}
+                {{--<span class="invalid-feedback" role="alert">--}}
+                  {{--<strong>{{ $message }}</strong>--}}
+                {{--</span>--}}
+                {{--@enderror--}}
+              {{--</div>--}}
+
+              {{--<div class="clone hide" style="display: none;">--}}
+                {{--<div class="control-group input-group">--}}
+                  {{--<input type="file" name="image[]" class="form-control" />--}}
+                  {{--<div class="input-group-btn">--}}
+                    {{--<button class="btn btn-danger" type="button"><i class="fa fa-trash"></i></button>--}}
+                  {{--</div>--}}
+                {{--</div>--}}
+              {{--</div>--}}
+              {{--<div class="product_img">--}}
+                {{--@foreach($edit_data->images as $image)--}}
+                {{--<img src="{{asset($image->image)}}" class="edit-image border" alt="" />--}}
+                {{--<a href="{{route('products.image.destroy',['id'=>$image->id])}}" class="btn btn-xs btn-danger waves-effect waves-light"><i class="mdi mdi-close"></i></a>--}}
+                {{--@endforeach--}}
+              {{--</div>--}}
+            {{--</div>--}}
+            <!-- col end -->
+
+            {{--new img--}}
+            <div class="col-sm-12 mb-3">
+              <label for="image">Add New Image <small class="text-muted">(Sort Order 0 = মূল ছবি)</small></label>
 
               <div class="clone hide" style="display: none;">
-                <div class="control-group input-group">
-                  <input type="file" name="image[]" class="form-control" />
-                  <div class="input-group-btn">
-                    <button class="btn btn-danger" type="button"><i class="fa fa-trash"></i></button>
+                <div class="control-group mb-2">
+                  <div class="row">
+                    <div class="col-sm-4"><input type="file" name="image[]" class="form-control" /></div>
+                    <div class="col-sm-3"><input type="text" name="alt_text[]" class="form-control" placeholder="Alt text" /></div>
+                    <div class="col-sm-3"><input type="text" name="image_title[]" class="form-control" placeholder="Image title" /></div>
+                    <div class="col-sm-1"><input type="number" name="sort_order[]" class="form-control" value="{{ $edit_data->images->count() }}" min="0" /></div>
+                    <div class="col-sm-1"><button class="btn btn-danger" type="button"><i class="fa fa-trash"></i></button></div>
                   </div>
                 </div>
               </div>
-              <div class="product_img">
-                @foreach($edit_data->images as $image)
-                <img src="{{asset($image->image)}}" class="edit-image border" alt="" />
-                <a href="{{route('products.image.destroy',['id'=>$image->id])}}" class="btn btn-xs btn-danger waves-effect waves-light"><i class="mdi mdi-close"></i></a>
-                @endforeach
+
+              <div class="control-group increment mb-2">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <input type="file" name="image[]" class="form-control @error('image') is-invalid @enderror" />
+                    @error('image')
+                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                    @enderror
+                  </div>
+                  <div class="col-sm-3"><input type="text" name="alt_text[]" class="form-control" placeholder="Alt text" /></div>
+                  <div class="col-sm-3"><input type="text" name="image_title[]" class="form-control" placeholder="Image title" /></div>
+                  <div class="col-sm-1"><input type="number" name="sort_order[]" class="form-control" value="{{ $edit_data->images->count() }}" min="0" /></div>
+                  <div class="col-sm-1"><button class="btn btn-success btn-increment" type="button"><i class="fa fa-plus"></i></button></div>
+                </div>
               </div>
+
+              @if($edit_data->images->count())
+                <hr>
+                <label>Existing Images</label>
+                @foreach($edit_data->images as $image)
+                  <div class="row align-items-center mb-2 existing-image-row">
+                    <div class="col-sm-2">
+                      <img src="{{asset($image->image)}}" class="edit-image border" alt="" />
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="text" name="existing_alt[{{$image->id}}]" class="form-control" value="{{ $image->alt_text }}" placeholder="Alt text" />
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="text" name="existing_title[{{$image->id}}]" class="form-control" value="{{ $image->title }}" placeholder="Image title" />
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="number" name="existing_sort[{{$image->id}}]" class="form-control" value="{{ $image->sort_order }}" min="0" />
+                    </div>
+                    <div class="col-sm-2">
+                      <a href="{{route('products.image.destroy',['id'=>$image->id])}}" class="btn btn-xs btn-danger waves-effect waves-light"><i class="mdi mdi-close"></i></a>
+                    </div>
+                  </div>
+                @endforeach
+              @endif
             </div>
             <!-- col end -->
+            {{--new img end--}}
+
             <div class="col-sm-6">
               <div class="form-group mb-3">
                 <label for="pro_unit" class="form-label">Product Unit (Optional)</label>
