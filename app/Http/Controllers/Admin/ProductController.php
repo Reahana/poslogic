@@ -252,51 +252,51 @@ class ProductController extends Controller
     return redirect()->back();
 }
     
-    public function update_old(Request $request)
-    {
-       $this->validate($request, [
-            'name' => 'required',
-            'category_id' => 'required',
-            'new_price' => 'required',
-            'purchase_price' => 'required',
-            'stock' => 'required',
-            'category_id' => 'required',
-            'description' => 'required',
-        ]);
-          
-        $update_data = Product::find($request->id);
-        $input = $request->except(['image','files','proSize','proColor']);
-        $last_id = Product::orderBy('id', 'desc')->select('id')->first();
-        $input['slug'] = strtolower(preg_replace('/[\/\s]+/', '-', $request->name.'-'.$last_id->id));
-        $input['status'] = $request->status?1:0;
-        $input['topsale'] = $request->topsale?1:0;
-        $input['feature_product'] = $request->feature_product?1:0;
-        $input['pro_video'] = $this->getYouTubeVideoId($request->pro_video);
-        $update_data->update($input);
-        $update_data->sizes()->sync($request->proSize);
-        $update_data->colors()->sync($request->proColor);
-
-        // image with intervention 
-        $images = $request->file('image');
-        if($images){
-            foreach ($images as $key => $image) {
-                $name =  time().'-'.$image->getClientOriginalName();
-                $name = strtolower(preg_replace('/\s+/', '-', $name));
-            	$uploadPath = 'public/uploads/product/';
-            	$image->move($uploadPath,$name);
-            	$imageUrl =$uploadPath.$name;
-
-                $pimage             = new Productimage();
-                $pimage->product_id = $update_data->id;
-                $pimage->image      = $imageUrl;
-                $pimage->save();
-            }
-        }
-        
-
-        Toastr::success('Success','Data update successfully');
-        return redirect()->route('products.index');
-    }
+//    public function update_old(Request $request)
+//    {
+//       $this->validate($request, [
+//            'name' => 'required',
+//            'category_id' => 'required',
+//            'new_price' => 'required',
+//            'purchase_price' => 'required',
+//            'stock' => 'required',
+//            'category_id' => 'required',
+//            'description' => 'required',
+//        ]);
+//
+//        $update_data = Product::find($request->id);
+//        $input = $request->except(['image','files','proSize','proColor']);
+//        $last_id = Product::orderBy('id', 'desc')->select('id')->first();
+//        $input['slug'] = strtolower(preg_replace('/[\/\s]+/', '-', $request->name.'-'.$last_id->id));
+//        $input['status'] = $request->status?1:0;
+//        $input['topsale'] = $request->topsale?1:0;
+//        $input['feature_product'] = $request->feature_product?1:0;
+//        $input['pro_video'] = $this->getYouTubeVideoId($request->pro_video);
+//        $update_data->update($input);
+//        $update_data->sizes()->sync($request->proSize);
+//        $update_data->colors()->sync($request->proColor);
+//
+//        // image with intervention
+//        $images = $request->file('image');
+//        if($images){
+//            foreach ($images as $key => $image) {
+//                $name =  time().'-'.$image->getClientOriginalName();
+//                $name = strtolower(preg_replace('/\s+/', '-', $name));
+//            	$uploadPath = 'public/uploads/product/';
+//            	$image->move($uploadPath,$name);
+//            	$imageUrl =$uploadPath.$name;
+//
+//                $pimage             = new Productimage();
+//                $pimage->product_id = $update_data->id;
+//                $pimage->image      = $imageUrl;
+//                $pimage->save();
+//            }
+//        }
+//
+//
+//        Toastr::success('Success','Data update successfully');
+//        return redirect()->route('products.index');
+//    }
     public function update(Request $request)
     {
         $this->validate($request, [
@@ -334,8 +334,8 @@ class ProductController extends Controller
             'spec_group', 'spec_name', 'spec_value',                   // NEW
         ]);
 
-        $last_id = Product::orderBy('id', 'desc')->select('id')->first();
-        $input['slug'] = strtolower(preg_replace('/[\/\s]+/', '-', $request->name.'-'.$last_id->id));
+//        $last_id = Product::orderBy('id', 'desc')->select('id')->first();
+//        $input['slug'] = strtolower(preg_replace('/[\/\s]+/', '-', $request->name.'-'.$last_id->id));
         $input['status'] = $request->status?1:0;
         $input['topsale'] = $request->topsale?1:0;
         $input['feature_product'] = $request->feature_product?1:0;
