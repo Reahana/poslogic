@@ -252,7 +252,7 @@ class ProductController extends Controller
     return redirect()->back();
 }
     
-    public function update(Request $request)
+    public function update_old(Request $request)
     {
        $this->validate($request, [
             'name' => 'required',
@@ -297,7 +297,119 @@ class ProductController extends Controller
         Toastr::success('Success','Data update successfully');
         return redirect()->route('products.index');
     }
- 
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'category_id' => 'required',
+            'new_price' => 'required',
+            'purchase_price' => 'required',
+            'stock' => 'required',
+            'description' => 'required',                       // CHANGED: category_id-র দ্বিতীয় লাইনটা মুছেছি
+            // NEW: নতুন ফিল্ডের validation
+            'meta_title'          => 'nullable|max:191',
+            'h1_title'            => 'nullable|max:255',
+            'model_no'            => 'nullable|max:100',
+            'mpn'                 => 'nullable|max:100',
+            'gtin'                => 'nullable|max:20',
+            'warranty'            => 'nullable|max:100',
+            'delivery_info'       => 'nullable|max:255',
+            'installation_info'   => 'nullable|max:255',
+            'service_info'        => 'nullable|max:255',
+            'availability_status' => 'nullable|in:in_stock,out_of_stock,pre_order,on_request',
+            'focus_keyword'       => 'nullable|max:150',
+            'meta_robots'         => 'nullable|max:50',
+            'canonical_url'       => 'nullable|max:255',
+            'og_image'            => 'nullable|max:255',
+        ]);
+
+        $update_data = Product::find($request->id);
+
+        // CHANGED: except-এ নতুন নামগুলো যোগ হয়েছে
+        $input = $request->except([
+            'image', 'files', 'proSize', 'proColor',
+            'alt_text', 'image_title', 'sort_order',                   // NEW: নতুন ছবির তথ্য
+            'existing_alt', 'existing_title', 'existing_sort',         // NEW: আগের ছবির তথ্য
+            'features', 'benefits',                                    // NEW
+            'spec_group', 'spec_name', 'spec_value',                   // NEW
+        ]);
+
+        $last_id = Product::orderBy('id', 'desc')->select('id')->first();
+        $input['slug'] = strtolower(preg_replace('/[\/\s]+/', '-', $request->name.'-'.$last_id->id));
+        $input['status'] = $request->status?1:0;
+        $input['topsale'] = $request->topsale?1:0;
+        $input['feature_product'] = $request->feature_product?1:0;
+        $input['pro_video'] = $this->getYouTubeVideoId($request->pro_video);
+
+        // NEW: নতুন ফিল্ডের মান
+        $input['call_for_price'] = $request->call_for_price ? 1 : 0;
+        $input['meta_robots']    = $request->meta_robots ?: 'index,follow';
+        $input['availability_status'] = $request->availability_status ?: ($request->stock > 0 ? 'in_stock' : 'out_of_stock');
+
+        // NEW: features ও benefits (প্রতি লাইনে একটা → array)
+        $toLines = function ($text) {
+            $lines = array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', (string) $text)));
+            return $lines ? array_values($lines) : null;
+        };
+        $input['features'] = $toLines($request->features);
+        $input['benefits'] = $toLines($request->benefits);
+
+        // NEW: specifications
+        $specs = [];
+        foreach ((array) $request->spec_name as $i => $specName) {
+            $specValue = $request->spec_value[$i] ?? null;
+            if ($specName && $specValue) {
+                $specs[] = [
+                    'group' => ($request->spec_group[$i] ?? null) ?: 'General',
+                    'name'  => $specName,
+                    'value' => $specValue,
+                ];
+            }
+        }
+        $input['specifications'] = $specs ?: null;
+
+        $update_data->update($input);
+        $update_data->sizes()->sync($request->proSize);
+        $update_data->colors()->sync($request->proColor);
+
+        // NEW: আগের ছবির alt text, title, sort order আপডেট
+        foreach ((array) $request->existing_alt as $imgId => $alt) {
+            Productimage::where('id', $imgId)
+                ->where('product_id', $update_data->id)
+                ->update([
+                    'alt_text'   => $alt,
+                    'title'      => $request->existing_title[$imgId] ?? null,
+                    'sort_order' => $request->existing_sort[$imgId] ?? 0,
+                ]);
+        }
+
+        // image with intervention
+        $images = $request->file('image');
+        if($images){
+            foreach ($images as $key => $image) {
+                $name =  time().'-'.$image->getClientOriginalName();
+                $name = strtolower(preg_replace('/\s+/', '-', $name));
+                $uploadPath = 'public/uploads/product/';
+                $image->move($uploadPath,$name);
+                $imageUrl =$uploadPath.$name;
+
+                $size = @getimagesize($imageUrl);                              // NEW
+
+                $pimage             = new Productimage();
+                $pimage->product_id = $update_data->id;
+                $pimage->image      = $imageUrl;
+                $pimage->alt_text   = $request->alt_text[$key] ?? null;        // NEW
+                $pimage->title      = $request->image_title[$key] ?? null;     // NEW
+                $pimage->sort_order = $request->sort_order[$key] ?? 0;         // NEW
+                $pimage->width      = $size[0] ?? null;                        // NEW
+                $pimage->height     = $size[1] ?? null;                        // NEW
+                $pimage->save();
+            }
+        }
+
+        Toastr::success('Success','Data update successfully');
+        return redirect()->route('products.index');
+    }
     public function inactive(Request $request)
     {
         $inactive = Product::find($request->hidden_id);
