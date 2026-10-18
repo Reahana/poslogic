@@ -256,6 +256,124 @@
               </div>
             </div>
              <!--col end -->
+
+            {{--new--}}
+            <div class="col-sm-6">
+              <div class="form-group mb-3">
+                <label for="h1_title" class="form-label">H1 Title (Optional)</label>
+                <input type="text" class="form-control @error('h1_title') is-invalid @enderror" name="h1_title" value="{{ old('h1_title', $edit_data->h1_title) }}" id="h1_title" />
+                @error('h1_title')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-3">
+              <div class="form-group mb-3">
+                <label for="model_no" class="form-label">Model No</label>
+                <input type="text" class="form-control @error('model_no') is-invalid @enderror" name="model_no" value="{{ old('model_no', $edit_data->model_no) }}" id="model_no" />
+                @error('model_no')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-3">
+              <div class="form-group mb-3">
+                <label for="mpn" class="form-label">MPN</label>
+                <input type="text" class="form-control @error('mpn') is-invalid @enderror" name="mpn" value="{{ old('mpn', $edit_data->mpn) }}" id="mpn" />
+                @error('mpn')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-3">
+              <div class="form-group mb-3">
+                <label for="gtin" class="form-label">GTIN / Barcode</label>
+                <input type="text" class="form-control @error('gtin') is-invalid @enderror" name="gtin" value="{{ old('gtin', $edit_data->gtin) }}" id="gtin" />
+                @error('gtin')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-3">
+              <div class="form-group mb-3">
+                <label for="warranty" class="form-label">Warranty</label>
+                <input type="text" class="form-control @error('warranty') is-invalid @enderror" name="warranty" value="{{ old('warranty', $edit_data->warranty) }}" id="warranty" placeholder="1 Year Service Warranty" />
+                @error('warranty')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-3">
+              <div class="form-group mb-3">
+                <label for="availability_status" class="form-label">Availability</label>
+                <select class="form-control @error('availability_status') is-invalid @enderror" name="availability_status" id="availability_status">
+                  <option value="in_stock" @if(old('availability_status', $edit_data->availability_status)=='in_stock') selected @endif>In Stock</option>
+                  <option value="out_of_stock" @if(old('availability_status', $edit_data->availability_status)=='out_of_stock') selected @endif>Out of Stock</option>
+                  <option value="pre_order" @if(old('availability_status', $edit_data->availability_status)=='pre_order') selected @endif>Pre Order</option>
+                  <option value="on_request" @if(old('availability_status', $edit_data->availability_status)=='on_request') selected @endif>On Request</option>
+                </select>
+                @error('availability_status')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-3 mb-3">
+              <div class="form-group">
+                <label for="call_for_price" class="d-block">Call for Price</label>
+                <label class="switch">
+                  <input type="checkbox" value="1" name="call_for_price" @if($edit_data->call_for_price==1) checked @endif>
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-4">
+              <div class="form-group mb-3">
+                <label for="delivery_info" class="form-label">Delivery Info</label>
+                <input type="text" class="form-control @error('delivery_info') is-invalid @enderror" name="delivery_info" value="{{ old('delivery_info', $edit_data->delivery_info) }}" id="delivery_info" />
+                @error('delivery_info')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-4">
+              <div class="form-group mb-3">
+                <label for="installation_info" class="form-label">Installation Info</label>
+                <input type="text" class="form-control @error('installation_info') is-invalid @enderror" name="installation_info" value="{{ old('installation_info', $edit_data->installation_info) }}" id="installation_info" />
+                @error('installation_info')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-4">
+              <div class="form-group mb-3">
+                <label for="service_info" class="form-label">Service Info</label>
+                <input type="text" class="form-control @error('service_info') is-invalid @enderror" name="service_info" value="{{ old('service_info', $edit_data->service_info) }}" id="service_info" />
+                @error('service_info')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-12 mb-3">
+              <div class="form-group">
+                <label for="short_description" class="form-label">Short Description (২-৩ লাইন)</label>
+                <textarea name="short_description" id="short_description" rows="3" class="form-control @error('short_description') is-invalid @enderror">{{ old('short_description', $edit_data->short_description) }}</textarea>
+                @error('short_description')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
+              </div>
+            </div>
+            <!-- col end -->
+
             <div class="col-sm-12 mb-3">
               <div class="form-group">
                 <label for="description" class="form-label">Description</label>
@@ -268,6 +386,7 @@
               </div>
             </div>
             <!-- col end -->
+            
            <div class="col-sm-12 mb-3">
               <div class="form-group">
                 <label for="note" class="form-label">Note</label>
