@@ -442,6 +442,83 @@
               </div>
             </div>
             <!-- col end -->
+
+              <div class="col-sm-12"><hr><h5>SEO Settings</h5></div>
+              <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                      <label for="meta_title" class="form-label">Meta Title</label>
+                      <input type="text" maxlength="191" class="form-control @error('meta_title') is-invalid @enderror" name="meta_title" value="{{ old('meta_title', $edit_data->meta_title) }}" id="meta_title" />
+                      @error('meta_title')
+                      <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                      @enderror
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-6">
+                  <div class="form-group mb-3">
+                      <label for="focus_keyword" class="form-label">Focus Keyword</label>
+                      <input type="text" maxlength="150" class="form-control @error('focus_keyword') is-invalid @enderror" name="focus_keyword" value="{{ old('focus_keyword', $edit_data->focus_keyword) }}" id="focus_keyword" />
+                      @error('focus_keyword')
+                      <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                      @enderror
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-12 mb-3">
+                  <div class="form-group">
+                      <label for="meta_description" class="form-label">Meta Description (১৫০-১৬০ অক্ষর)</label>
+                      <textarea name="meta_description" id="meta_description" rows="3" class="form-control @error('meta_description') is-invalid @enderror">{{ old('meta_description', $edit_data->meta_description) }}</textarea>
+                      @error('meta_description')
+                      <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                      @enderror
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-6 mb-3">
+                  <div class="form-group">
+                      <label for="meta_keyword" class="form-label">Meta Keyword (Optional)</label>
+                      <textarea name="meta_keyword" id="meta_keyword" rows="3" class="form-control">{{ old('meta_keyword', $edit_data->meta_keyword) }}</textarea>
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-6 mb-3">
+                  <div class="form-group">
+                      <label for="secondary_keywords" class="form-label">Secondary Keywords</label>
+                      <textarea name="secondary_keywords" id="secondary_keywords" rows="3" class="form-control">{{ old('secondary_keywords', $edit_data->secondary_keywords) }}</textarea>
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-4">
+                  <div class="form-group mb-3">
+                      <label for="meta_robots" class="form-label">Meta Robots</label>
+                      <input type="text" class="form-control @error('meta_robots') is-invalid @enderror" name="meta_robots" value="{{ old('meta_robots', $edit_data->meta_robots ?: 'index,follow') }}" id="meta_robots" />
+                      @error('meta_robots')
+                      <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                      @enderror
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-4">
+                  <div class="form-group mb-3">
+                      <label for="canonical_url" class="form-label">Canonical URL (সাধারণত ফাঁকা)</label>
+                      <input type="text" class="form-control @error('canonical_url') is-invalid @enderror" name="canonical_url" value="{{ old('canonical_url', $edit_data->canonical_url) }}" id="canonical_url" />
+                      @error('canonical_url')
+                      <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                      @enderror
+                  </div>
+              </div>
+              <!-- col end -->
+              <div class="col-sm-4">
+                  <div class="form-group mb-3">
+                      <label for="og_image" class="form-label">OG Image (ফাঁকা থাকলে প্রথম ছবি)</label>
+                      <input type="text" class="form-control @error('og_image') is-invalid @enderror" name="og_image" value="{{ old('og_image', $edit_data->og_image) }}" id="og_image" />
+                      @error('og_image')
+                      <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                      @enderror
+                  </div>
+              </div>
+              <!-- col end -->
+
              <div class="col-sm-3 mb-3">
               <div class="form-group mb-3">
                 <label for="sold" class="form-label">Sold</label>
