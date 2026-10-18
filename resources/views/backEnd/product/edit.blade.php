@@ -602,6 +602,19 @@
     placeholder: "Enter Your Text Here",
   });
 </script>
+{{--new--}}
+<script type="text/javascript">
+  $(document).ready(function () {
+    $(".btn-spec-add").click(function () {
+      var html = $(".clone-spec").html();
+      $(".spec-increment").after(html);
+    });
+    $("body").on("click", ".btn-spec-remove", function () {
+      $(this).parents(".spec-row").remove();
+    });
+  });
+</script>
+{{--new end--}}
 <script type="text/javascript">
   $(document).ready(function () {
     $(".btn-increment").click(function () {
