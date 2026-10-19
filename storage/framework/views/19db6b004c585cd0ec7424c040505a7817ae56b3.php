@@ -159,34 +159,48 @@ endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
                     </div>
-                   
+                    <!-- col-end -->
+                    
+                    
+                        
+                            
+                            
+                            
+                                
+                                    
+                                
+                            
+                        
+                    
+                <!-- col-end -->
                     <div class="col-sm-12">
                         <div class="form-group mb-3">
-                            <label for="meta_description" class="form-label">Meta Description*</label>
-                            <textarea type="text" class="summernote form-control <?php $__errorArgs = ['meta_description'];
+                            <label for="meta_description" class="form-label">Meta Description* (১৫০-১৬০ অক্ষর)</label>
+                            <textarea class="form-control <?php $__errorArgs = ['meta_description'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" name="meta_description" rows="6" value="<?php echo e(old('meta_description')); ?>"  id="meta_description"></textarea>
+unset($__errorArgs, $__bag); ?>" name="meta_description" rows="3" id="meta_description"><?php echo e(old('meta_description')); ?></textarea>
                             <?php $__errorArgs = ['meta_description'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                <span class="invalid-feedback" role="alert">
-                                    <strong><?php echo e($message); ?></strong>
-                                </span>
+                            <span class="invalid-feedback" role="alert">
+                <strong><?php echo e($message); ?></strong>
+            </span>
                             <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
                     </div>
-                    
                     <!-- col-end -->
+                    
+
 
                     <div class="col-sm-12">
                         <div class="form-group mb-3">
