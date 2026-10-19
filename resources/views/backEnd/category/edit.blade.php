@@ -102,6 +102,80 @@
                         </div>
                     </div>
                     <!-- col-end -->
+
+                    <div class="col-sm-12">
+                        <div class="form-group mb-3">
+                            <label for="focus_keyword" class="form-label">Focus Keyword</label>
+                            <input type="text" maxlength="150" class="form-control @error('focus_keyword') is-invalid @enderror" name="focus_keyword" value="{{ old('focus_keyword', $edit_data->focus_keyword) }}" id="focus_keyword" placeholder="POS Printer Bangladesh">
+                            @error('focus_keyword')
+                            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- col-end -->
+                    <div class="col-sm-12">
+                        <div class="form-group mb-3">
+                            <label for="secondary_keywords" class="form-label">Secondary Keywords (কমা দিয়ে আলাদা)</label>
+                            <textarea class="form-control @error('secondary_keywords') is-invalid @enderror" name="secondary_keywords" rows="2" id="secondary_keywords">{{ old('secondary_keywords', $edit_data->secondary_keywords) }}</textarea>
+                            @error('secondary_keywords')
+                            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- col-end -->
+                    <div class="col-sm-4">
+                        <div class="form-group mb-3">
+                            <label for="meta_robots" class="form-label">Meta Robots</label>
+                            <input type="text" class="form-control @error('meta_robots') is-invalid @enderror" name="meta_robots" value="{{ old('meta_robots', $edit_data->meta_robots ?: 'index,follow') }}" id="meta_robots">
+                            @error('meta_robots')
+                            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- col-end -->
+                    <div class="col-sm-4">
+                        <div class="form-group mb-3">
+                            <label for="canonical_url" class="form-label">Canonical URL (সাধারণত ফাঁকা)</label>
+                            <input type="text" class="form-control @error('canonical_url') is-invalid @enderror" name="canonical_url" value="{{ old('canonical_url', $edit_data->canonical_url) }}" id="canonical_url">
+                            @error('canonical_url')
+                            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- col-end -->
+                    <div class="col-sm-4">
+                        <div class="form-group mb-3">
+                            <label for="og_image" class="form-label">OG Image (শেয়ার ছবি)</label>
+                            <input type="text" class="form-control @error('og_image') is-invalid @enderror" name="og_image" value="{{ old('og_image', $edit_data->og_image) }}" id="og_image">
+                            @error('og_image')
+                            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- col-end -->
+                    <div class="col-sm-12 mb-3">
+                        <div class="form-group">
+                            <label for="page_content" class="form-label">Page Content (পেজের নিচের ৩০০-৭০০ শব্দের লেখা)</label>
+                            <textarea name="page_content" id="page_content" rows="8" class="summernote form-control @error('page_content') is-invalid @enderror">{{ old('page_content', $edit_data->page_content) }}</textarea>
+                            @error('page_content')
+                            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- col end -->
+
                     <div class="col mb-3">
                         <div class="form-group">
                             <label for="status" class="d-block">Status</label>
