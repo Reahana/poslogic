@@ -165,6 +165,19 @@
                     </div>
                     <!-- col-end -->
 
+                    <div class="col-sm-12 mb-3">
+                        <div class="form-group">
+                            <label for="page_content" class="form-label">Page Content (পেজের নিচের ৩০০-৭০০ শব্দের লেখা)</label>
+                            <textarea name="page_content" id="page_content" rows="8" class="summernote form-control @error('page_content') is-invalid @enderror">{{ old('page_content') }}</textarea>
+                            @error('page_content')
+                            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- col end -->
+
                     <div class="col mb-3">
                         <div class="form-group">
                             <label for="status" class="d-block">Status</label>
