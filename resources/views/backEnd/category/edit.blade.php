@@ -37,6 +37,19 @@
                         </div>
                     </div>
                     <!-- col-end -->
+
+                    <div class="col-sm-12">
+                        <div class="form-group mb-3">
+                            <label for="h1_title" class="form-label">H1 Title (ফাঁকা থাকলে Name ব্যবহার হবে)</label>
+                            <input type="text" class="form-control @error('h1_title') is-invalid @enderror" name="h1_title" value="{{ old('h1_title', $edit_data->h1_title) }}" id="h1_title">
+                            @error('h1_title')
+                            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- col-end -->
                     
                     <div class="col-sm-12 mb-3">
                         <div class="form-group">
