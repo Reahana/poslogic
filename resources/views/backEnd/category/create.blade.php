@@ -67,6 +67,19 @@
 
                     <div class="col-sm-12">
                         <div class="form-group mb-3">
+                            <label for="image_alt" class="form-label">Image Alt (ছবির বর্ণনা)</label>
+                            <input type="text" class="form-control @error('image_alt') is-invalid @enderror" name="image_alt" value="{{ old('image_alt') }}" id="image_alt" placeholder="POS Printer category image">
+                            @error('image_alt')
+                            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- col-end -->
+
+                    <div class="col-sm-12">
+                        <div class="form-group mb-3">
                             <label for="meta_title" class="form-label">Meta Title</label>
                             <input type="text" class="form-control @error('meta_title') is-invalid @enderror" name="meta_title" value="{{ old('meta_title') }}" id="meta_title">
                             @error('meta_title')
