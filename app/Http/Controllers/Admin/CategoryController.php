@@ -89,6 +89,14 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            // NEW: নতুন ফিল্ডের validation (সব ঐচ্ছিক)
+            'image_alt'     => 'nullable|max:255',
+            'meta_title'    => 'nullable|max:191',
+            'h1_title'      => 'nullable|max:255',
+            'focus_keyword' => 'nullable|max:150',
+            'meta_robots'   => 'nullable|max:50',
+            'canonical_url' => 'nullable|max:255',
+            'og_image'      => 'nullable|max:255',
         ]);
         $update_data = Category::find($request->id);
         $input = $request->all();
@@ -120,6 +128,7 @@ class CategoryController extends Controller
         $input['parent_id'] = $request->parent_id?$request->parent_id:0;
         $input['front_view'] = $request->front_view ? 1 : 0;
         $input['status'] = $request->status?1:0;
+        $input['meta_robots'] = $request->meta_robots ?: 'index,follow';   // NEW
         
         $update_data->update($input);
 
