@@ -22,6 +22,14 @@ return new class extends Migration
             $table->string('meta_title')->nullable();
             $table->text('meta_decription')->nullable();
             $table->tinyInteger('status');
+            $table->string('image_alt')->nullable();
+            $table->string('h1_title')->nullable();
+            $table->string('focus_keyword', 150)->nullable();
+            $table->text('secondary_keywords')->nullable();
+            $table->longText('page_content')->nullable();
+            $table->string('meta_robots', 50)->default('index,follow');
+            $table->string('canonical_url')->nullable();
+            $table->string('og_image')->nullable();
             $table->timestamps();
         });
     }
