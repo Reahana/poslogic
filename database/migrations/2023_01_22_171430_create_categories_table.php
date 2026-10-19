@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('parent_id')->default('0');
             $table->string('image')->default('public/uploads/category/default.png');
             $table->string('meta_title')->nullable();
-            $table->text('meta_decription')->nullable();
+            $table->text('meta_description')->nullable();
             $table->tinyInteger('status');
             $table->string('image_alt')->nullable();
             $table->string('h1_title')->nullable();
