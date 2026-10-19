@@ -89,20 +89,34 @@
                             @enderror
                         </div>
                     </div>
-                   
+                    <!-- col-end -->
+                    {{--old meta description--}}
+                    {{--<div class="col-sm-12">--}}
+                        {{--<div class="form-group mb-3">--}}
+                            {{--<label for="meta_description" class="form-label">Meta Description*</label>--}}
+                            {{--<textarea type="text" class="summernote form-control @error('meta_description') is-invalid @enderror" name="meta_description" rows="6" value="{{ old('meta_description') }}"  id="meta_description"></textarea>--}}
+                            {{--@error('meta_description')--}}
+                                {{--<span class="invalid-feedback" role="alert">--}}
+                                    {{--<strong>{{ $message }}</strong>--}}
+                                {{--</span>--}}
+                            {{--@enderror--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                <!-- col-end -->
                     <div class="col-sm-12">
                         <div class="form-group mb-3">
-                            <label for="meta_description" class="form-label">Meta Description*</label>
-                            <textarea type="text" class="summernote form-control @error('meta_description') is-invalid @enderror" name="meta_description" rows="6" value="{{ old('meta_description') }}"  id="meta_description"></textarea>
+                            <label for="meta_description" class="form-label">Meta Description* (১৫০-১৬০ অক্ষর)</label>
+                            <textarea class="form-control @error('meta_description') is-invalid @enderror" name="meta_description" rows="3" id="meta_description">{{ old('meta_description') }}</textarea>
                             @error('meta_description')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
                             @enderror
                         </div>
                     </div>
-                    
                     <!-- col-end -->
+                    
+
 
                     <div class="col-sm-12">
                         <div class="form-group mb-3">
