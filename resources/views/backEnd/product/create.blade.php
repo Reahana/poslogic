@@ -397,6 +397,41 @@
               </div>
             </div>
                <!--col end -->
+
+            <div class="col-sm-6 mb-3">
+              <div class="form-group">
+                <label for="features" class="form-label">Features (প্রতি লাইনে একটা)</label>
+                <textarea name="features" id="features" rows="5" class="form-control @error('features') is-invalid @enderror">{{ old('features') }}</textarea>
+              </div>
+            </div>
+            <!-- col end -->
+            <div class="col-sm-6 mb-3">
+              <div class="form-group">
+                <label for="benefits" class="form-label">Benefits (প্রতি লাইনে একটা)</label>
+                <textarea name="benefits" id="benefits" rows="5" class="form-control @error('benefits') is-invalid @enderror">{{ old('benefits') }}</textarea>
+              </div>
+            </div>
+            <!-- col end -->
+
+            <div class="col-sm-12 mb-3">
+              <label class="form-label">Specifications</label>
+              <div class="clone-spec" style="display: none;">
+                <div class="row spec-row mb-2">
+                  <div class="col-sm-3"><input type="text" name="spec_group[]" class="form-control" placeholder="Group (Display)" /></div>
+                  <div class="col-sm-4"><input type="text" name="spec_name[]" class="form-control" placeholder="Name (Size)" /></div>
+                  <div class="col-sm-4"><input type="text" name="spec_value[]" class="form-control" placeholder="Value (15.6 inch)" /></div>
+                  <div class="col-sm-1"><button class="btn btn-danger btn-spec-remove" type="button"><i class="fa fa-trash"></i></button></div>
+                </div>
+              </div>
+              <div class="row spec-row mb-2 spec-increment">
+                <div class="col-sm-3"><input type="text" name="spec_group[]" class="form-control" placeholder="Group (Display)" /></div>
+                <div class="col-sm-4"><input type="text" name="spec_name[]" class="form-control" placeholder="Name (Size)" /></div>
+                <div class="col-sm-4"><input type="text" name="spec_value[]" class="form-control" placeholder="Value (15.6 inch)" /></div>
+                <div class="col-sm-1"><button class="btn btn-success btn-spec-add" type="button"><i class="fa fa-plus"></i></button></div>
+              </div>
+            </div>
+            <!-- col end -->
+
             <div class="col-sm-12 mb-3">
               <div class="form-group">
                 <label for="note" class="form-label">Note </label>
